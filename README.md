@@ -27,7 +27,7 @@ Other things to note: you can directly specify which sources you want (or don't 
 * Manage already downloaded articles, or periods of time. Problem is that two urls can point to the same article. Ideally, don't redownload what we already have.
    * Also detect duplicates in postprocessing.
 * Clean downloaded text (right now it may contain unicode '\u2019', '\n\n', etc.)
-* Can we filter out nonsense articles? How to do so without loosing to many relevant ones. One way would be selection of articles from their keywords (automatically done by the Newspaper3k NLP, also saved in the json file), however some terms are hard to obtain. Other possibility would be searching in the article text for some phrases.
+* Can we filter out nonsense articles? How to do so without loosing to many relevant ones. One way would be selection of articles from their keywords (automatically done by the Newspaper3k NLP, also saved in the json file), however some terms are hard to obtain. Other possibility would be searching in the article text for some phrases. Finally we could use the News API's "sorting by relevance" feature and download always only certain number of articles (perhaps per day/week/month) and then simply use all articles.
 
 ## credits
 Code inspired by previously used version of news scraper from https://github.com/heximhotep/fakenews_scraper. We download in the same format (to easily reuse code), but we don't fork from one page to all possible urls - instead we get a list of urls to download via another search library.
