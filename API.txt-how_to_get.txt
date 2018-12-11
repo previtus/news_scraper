@@ -1,0 +1,3 @@
+Setup:
+Get your API at: https://newsapi.org
+PS: the free Developer version works for 1000 articles daily.
