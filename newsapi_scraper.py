@@ -5,13 +5,14 @@ import datetime
 from scraper_functions import download_list_of_urls, fileName
 
 search_term = 'artificial intelligence'
-LIMIT_DONWLOADS = 10 #< Daily limit is 1000!
-SKIP_FIRST = 10 # skip if you are running the same search again
+directory = 'ai_OCT_11.11.-30.11._first'
+LIMIT_DONWLOADS = 6000 #< Daily limit is 1000!
+SKIP_FIRST = 0 # skip if you are running the same search again
 
 # downloaded
 # 11.11. - 11.16.
 from_date = "2018-11-11"
-to_date = "2018-11-16"
+to_date = "2018-11-30"
 
 last_x_days = 1
 LAST_X_DAYS = False
@@ -54,7 +55,7 @@ print("Found in total", n_articles)
 if n_articles < LIMIT_DONWLOADS:
     LIMIT_DONWLOADS = n_articles
 
-PER_PAGE=10
+PER_PAGE=100
 n_calls = math.ceil(LIMIT_DONWLOADS / PER_PAGE)
 
 
@@ -65,14 +66,14 @@ total_i = 0 + SKIP_FIRST
 skip_pages = math.floor(SKIP_FIRST / PER_PAGE)
 
 for i in range(0,n_calls):
-    print("[ page #",i+1+skip_pages,"]")
+    print("[ page #",i+1+skip_pages, "/", n_calls,"]")
     batch_articles = newsapi.get_everything(q=search_term,
                                             sources=all_sources,
                                             from_param=from_date,
                                             to=to_date,
                                             language='en',
                                             sort_by='relevancy',
-                                            page_size=10,
+                                            page_size=PER_PAGE,
                                             page=(i+1+skip_pages))
 
 
@@ -100,4 +101,4 @@ for i in range(0,n_calls):
 
 print("Finally we have ", len(url_list), " article URLs.")
 
-download_list_of_urls(url_list, "downloaded_batch_1")
+download_list_of_urls(url_list, directory)
