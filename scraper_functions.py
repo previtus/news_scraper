@@ -50,8 +50,8 @@ def download_list_of_urls(urls, target_dir, delay=0.2):
     if not os.path.exists(target_dir):
         os.makedirs(target_dir)
 
-    for url in urls:
-        print("downloading ", url)
+    for sorted_i,url in enumerate(urls):
+        print(sorted_i, "] downloading ", url)
         article = Article(url)
         try:
             article.download()
@@ -63,7 +63,8 @@ def download_list_of_urls(urls, target_dir, delay=0.2):
             features = {"content": {"keywords": [{"keyword": word} for word in article.keywords]}}
 
             articleJSON = {"features": features, "url": article.url, "date": article.publish_date,
-                           "title": article.title, "authors": article.authors, "body": article.text}
+                           "title": article.title, "authors": article.authors, "body": article.text,
+                           "relevance_sorted_i": sorted_i}
             with open(target_dir+"/"+article_filename, 'w') as outfile:
                 json.dump(articleJSON, outfile, indent=2, default=str)
                 print("saved sucessfully to", target_dir+"/"+article_filename)
